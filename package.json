@@ -1,0 +1,23 @@
+{
+  "name": "managerserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/Launcher.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "msnodesqlv8": "^2.2.0",
+    "mssql": "^7.1.3",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/mssql": "^6.0.8",
+    "@types/nedb": "^1.8.11",
+    "@types/node": "^15.6.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}

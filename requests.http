@@ -1,0 +1,36 @@
+POST http://localhost:3000/login
+Content-Type: "application/json"
+
+{
+    
+    "username":"first_user",
+    "password":"password"
+}
+
+###
+GET http://localhost:3000/users?id=55
+Authorization: j53hkuta1pq
+
+
+###
+GET http://localhost:3000/users?name=mamdou
+Authorization: l8uffwvyt7o
+
+
+###
+DELETE  http://localhost:3000/users?id=55
+Authorization: j53hkuta1pq
+
+
+###
+PUT http://localhost:3000/users 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+   "age": 10,
+   "email": "tetp",
+   "name": "mamdouh",
+   "workingPosition": 1
+}
+

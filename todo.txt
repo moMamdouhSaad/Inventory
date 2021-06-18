@@ -1,0 +1,4 @@
+1- Connect sql server with server // Done
+2- Category and products
+3- Suppliers and Clients
+4- System Users
