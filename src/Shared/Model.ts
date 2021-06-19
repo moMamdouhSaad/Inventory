@@ -1,3 +1,4 @@
+import internal = require("stream");
 import { Account } from "../Server/Model";
 
 export interface Category {
@@ -32,6 +33,22 @@ export interface Product {
   uom_id: number;
 }
 
+export interface Supplier {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  notes: string;
+}
+
+export interface Client {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  notes: string;
+}
+
 export enum RowEffection {
   AFFECTED = 1,
   NON_AFFECTED = 0,
@@ -42,8 +59,8 @@ export enum ZeroOne {
 }
 
 export interface DBCrudHandle {
-  insert(categry: Category): Promise<any>;
-  update(category: Category): Promise<any>;
+  insert(categry: any): Promise<any>;
+  update(category: any): Promise<any>;
   getAll(): Promise<any>;
   getById(id: string): Promise<any>;
   getByName(name: string): Promise<any>;

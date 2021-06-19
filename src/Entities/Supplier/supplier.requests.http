@@ -1,0 +1,40 @@
+
+
+
+
+GET  http://localhost:3000/supplier
+
+
+###
+GET  http://localhost:3000/supplier?id=2
+
+
+###
+DELETE   http://localhost:3000/supplier?id=2
+
+
+###
+PUT http://localhost:3000/supplier 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+   "id": 2,
+      "name": "myname",
+
+   "address": "soso supllier",
+   "phone":"014645110"
+}
+
+###
+
+
+###
+POST http://localhost:3000/supplier
+Content-Type: "application/json"
+
+{
+   "name": "first supplier",
+   "address":"address",
+   "phone":"0106621416"
+}

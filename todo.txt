@@ -1,7 +1,8 @@
 1- Connect sql server with server // Done
-2- Category,Company,UOM
+2- Category,Company, UOM
 3- products
-4- Suppliers and Clients
+4- Supplier and Client
+
 5- Sale and Purchase
 6- pagination and response body
 7- System Users

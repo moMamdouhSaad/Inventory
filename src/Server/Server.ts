@@ -3,6 +3,7 @@ import { Authorizer } from "../Authorization/Authorizer";
 import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
 import { ProductRoutesHandler } from "../Entities/Product/ProductRoutesHandler";
+import { SupplierRoutesHandler } from "../Entities/Supplier/SupplierRoutesHandler";
 import { UOMRoutesHandler } from "../Entities/UOM/UOMRoutesHandler";
 import { LoginHandler } from "./LoginHandler";
 import { TokenValidator } from "./Model";
@@ -36,6 +37,10 @@ export class Server {
 
         case "product":
           await new ProductRoutesHandler(req, res).handleRequest();
+          break;
+
+        case "supplier":
+          await new SupplierRoutesHandler(req, res).handleRequest();
           break;
 
         case "uom":
