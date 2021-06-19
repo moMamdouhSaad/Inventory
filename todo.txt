@@ -1,5 +1,5 @@
 1- Connect sql server with server // Done
-2- Category,Company
+2- Category,Company,UOM
 3- products
 4- Suppliers and Clients
 5- Sale and Purchase

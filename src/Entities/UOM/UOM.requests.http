@@ -1,0 +1,29 @@
+
+
+
+
+GET  http://localhost:3000/uom
+
+
+###
+GET  http://localhost:3000/uom?name=test
+
+
+###
+PUT http://localhost:3000/uom 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+   "id": 2,
+   "name": "updated"
+}
+
+###
+POST http://localhost:3000/uom
+Content-Type: "application/json"
+
+{
+   "name": "new one",
+   "description":"description"
+}

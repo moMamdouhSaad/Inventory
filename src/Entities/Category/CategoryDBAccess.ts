@@ -20,7 +20,7 @@ export class CategoyDBAccess implements DBCrudHandle {
             resolve(RowEffection.NON_AFFECTED);
           }
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
@@ -58,8 +58,8 @@ export class CategoyDBAccess implements DBCrudHandle {
       try {
         const pool = await dbConnection();
         if (pool) {
-          const categories = await pool.request().execute("Get_All_Categories");
-          resolve(categories.recordset);
+          const results = await pool.request().execute("Get_All_Categories");
+          resolve(results.recordset);
         } else {
           throw new Error("Error with database connection");
         }
@@ -132,41 +132,3 @@ export class CategoyDBAccess implements DBCrudHandle {
     });
   }
 }
-
-const test = new CategoyDBAccess();
-
-const category: Category = {
-  id: 1,
-  name: "latest",
-  description: "desc2 updated",
-};
-
-// test.insertCategory(category).then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-test.update(category).then(
-  (data) => console.log(data),
-  (err) => console.log(err)
-);
-
-// test.getAllCategories().then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.getCategoryById("5").then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.getCategoryByName("test2").then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.deleteCategoryByID(2).then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );

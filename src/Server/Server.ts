@@ -2,6 +2,7 @@ import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Authorizer } from "../Authorization/Authorizer";
 import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
+import { UOMRoutesHandler } from "../Entities/UOM/UOMRoutesHandler";
 import { LoginHandler } from "./LoginHandler";
 import { TokenValidator } from "./Model";
 import { UsersHandler } from "./UsersHandler";
@@ -9,26 +10,7 @@ import { Utils } from "./utils";
 export class Server {
   private authorizer: Authorizer = new Authorizer();
 
-  public myFunc(user: any, handle: any) {
-    if (user == "done") {
-      handle(null, "my data");
-    } else {
-      handle("errorrrrrrrrr", null);
-    }
-  }
-
   public createServer(): void {
-    // test
-    this.myFunc("done", (err: any, data: any) => {
-      if (data) {
-        console.log(data);
-      }
-      if (err) {
-        console.log(err);
-      }
-    });
-    //
-
     createServer(async (req: IncomingMessage, res: ServerResponse) => {
       console.log("Get request from", req.url?.length);
       const basePath = Utils.getUrlBasePath(req.url);
@@ -42,11 +24,19 @@ export class Server {
           break;
 
         case "category":
+          console.log("category");
+
           await new CategoryRoutesHandler(req, res).handleRequest();
           break;
 
         case "company":
           await new CompanyRoutesHandler(req, res).handleRequest();
+          break;
+
+        case "uom":
+          console.log("uom");
+
+          await new UOMRoutesHandler(req, res).handleRequest();
           break;
 
         default:

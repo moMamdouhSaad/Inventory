@@ -21,7 +21,7 @@ export class CompanyDBAccess implements DBCrudHandle {
           }
           pool.close();
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
@@ -133,41 +133,3 @@ export class CompanyDBAccess implements DBCrudHandle {
     });
   }
 }
-
-// const test = new CompanyDBAccess();
-
-// const company: Company = {
-//   id: 1,
-//   name: "latest",
-//   description: "desc2 updated",
-// };
-
-// test.insertCategory(category).then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.update(company).then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.getAllCategories().then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.getCategoryById("5").then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.getCategoryByName("test2").then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );
-
-// test.deleteCategoryByID(2).then(
-//   (data) => console.log(data),
-//   (err) => console.log(err)
-// );

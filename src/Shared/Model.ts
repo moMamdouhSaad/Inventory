@@ -12,6 +12,12 @@ export interface Company {
   description: string;
 }
 
+export interface Uom {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export enum RowEffection {
   AFFECTED = 1,
   NON_AFFECTED = 0,
