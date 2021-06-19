@@ -1,0 +1,36 @@
+
+
+
+
+GET  http://localhost:3000/category
+
+
+###
+GET  http://localhost:3000/category?id=2
+
+
+###
+DELETE   http://localhost:3000/category?id=115
+
+
+###
+PUT http://localhost:3000/category 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+   "id": 2,
+   "name": "updated"
+}
+
+###
+
+
+###
+POST http://localhost:3000/category
+Content-Type: "application/json"
+
+{
+   "name": "new one",
+   "description":"description"
+}

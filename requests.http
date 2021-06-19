@@ -1,11 +1,19 @@
+
+
+
+
+
+
+###
 POST http://localhost:3000/login
 Content-Type: "application/json"
-
 {
     
     "username":"first_user",
     "password":"password"
 }
+
+
 
 ###
 GET http://localhost:3000/users?id=55

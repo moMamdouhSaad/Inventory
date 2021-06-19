@@ -11,6 +11,13 @@ export enum RowEffection {
   NON_AFFECTED = 0,
 }
 
+export abstract class CrudHandle {
+  protected abstract handlePost(): Promise<void>;
+  protected abstract handleGet(): Promise<void>;
+  protected abstract handlePut(): Promise<void>;
+  protected abstract handleDelete(): Promise<void>;
+}
+
 export interface UserCredentials extends Account {
   accessRights: AccessRight[];
 }
@@ -42,6 +49,7 @@ export enum AccessRight {
 export enum HTTP_CODES {
   OK = 200,
   CREATED = 201,
+  NO_CONTENT = 204,
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,

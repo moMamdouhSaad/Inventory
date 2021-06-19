@@ -1,5 +1,6 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Authorizer } from "../Authorization/Authorizer";
+import { CategoryRoutesHandler } from "../Category/CategoryRoutesHandler";
 import { LoginHandler } from "./LoginHandler";
 import { TokenValidator } from "./Model";
 import { UsersHandler } from "./UsersHandler";
@@ -37,6 +38,10 @@ export class Server {
 
         case "users":
           await new UsersHandler(req, res, this.authorizer).handleRequest();
+          break;
+
+        case "category":
+          await new CategoryRoutesHandler(req, res).handleRequest();
           break;
 
         default:

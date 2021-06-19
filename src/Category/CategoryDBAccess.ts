@@ -29,25 +29,25 @@ export class CategoyDBAccess {
     });
   }
 
-  public async updateCategory(categry: Category): Promise<any> {
+  public async updateCategory(category: Category): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
           const results = await pool
             .request()
-            .input("id", categry.id)
-            .input("name", categry.name)
-            .input("description", categry.description)
+            .input("id", category.id)
+            .input("name", category.name)
+            .input("description", category.description)
             .execute("Update_Category");
           if (results.rowsAffected[0] > 0) {
             resolve(RowEffection.AFFECTED);
           } else {
-            resolve(RowEffection.NON_AFFECTED);
+            throw new Error("Error with request body");
           }
           pool.close();
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
@@ -61,9 +61,9 @@ export class CategoyDBAccess {
         const pool = await dbConnection();
         if (pool) {
           const categories = await pool.request().execute("Get_All_Categories");
-          resolve(categories.recordsets);
+          resolve(categories.recordset);
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
@@ -82,7 +82,7 @@ export class CategoyDBAccess {
             .execute("Get_Category_By_ID");
           resolve(categories.recordset[0]);
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
@@ -99,10 +99,10 @@ export class CategoyDBAccess {
             .request()
             .input("name", name)
             .execute("Get_Category_By_Name");
-          resolve(categories.recordsets);
+          resolve(categories.recordset);
           pool.close();
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
@@ -110,14 +110,14 @@ export class CategoyDBAccess {
     });
   }
 
-  public async deleteCategoryByID(id: number): Promise<any> {
+  public async deleteCategoryByID(id: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
           const results = await pool
             .request()
-            .input("id", id)
+            .input("id", parseInt(id))
             .execute("Delete_Category");
           if (results.rowsAffected[0] > 0) {
             resolve(RowEffection.AFFECTED);
@@ -127,7 +127,7 @@ export class CategoyDBAccess {
 
           pool.close();
         } else {
-          console.log("connection error");
+          throw new Error("Error with database connection");
         }
       } catch (e) {
         reject(e);
