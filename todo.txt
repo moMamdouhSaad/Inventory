@@ -1,4 +1,6 @@
 1- Connect sql server with server // Done
-2- Category,Company and products
-3- Suppliers and Clients
-4- System Users
+2- Category,Company
+3- products
+4- Suppliers and Clients
+5- Sale and Purchase
+6- System Users

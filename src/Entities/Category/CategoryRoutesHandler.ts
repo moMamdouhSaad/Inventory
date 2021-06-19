@@ -1,13 +1,13 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { UrlWithParsedQuery } from "url";
-import { BaseRequestHandler } from "../Server/BaseRequestHandler";
-import { Utils } from "../Server/utils";
+import { BaseRequestHandler } from "../../Server/BaseRequestHandler";
+import { Utils } from "../../Server/utils";
 import {
   Category,
   CrudHandle,
   HTTP_CODES,
   HTTP_METHODS,
-} from "../Shared/Model";
+} from "../../Shared/Model";
 import { CategoyDBAccess } from "./CategoryDBAccess";
 
 export class CategoryRoutesHandler extends BaseRequestHandler {

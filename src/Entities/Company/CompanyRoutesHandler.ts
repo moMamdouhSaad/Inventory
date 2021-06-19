@@ -1,8 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { UrlWithParsedQuery } from "url";
-import { BaseRequestHandler } from "../Server/BaseRequestHandler";
-import { Utils } from "../Server/utils";
-import { Company, HTTP_CODES, HTTP_METHODS } from "../Shared/Model";
+import { BaseRequestHandler } from "../../Server/BaseRequestHandler";
+import { Utils } from "../../Server/utils";
+import { Company, HTTP_CODES, HTTP_METHODS } from "../../Shared/Model";
 import { CompanyDBAccess } from "./CompanyDBAccess";
 
 export class CompanyRoutesHandler extends BaseRequestHandler {

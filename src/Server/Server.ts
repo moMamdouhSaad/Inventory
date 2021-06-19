@@ -1,7 +1,7 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Authorizer } from "../Authorization/Authorizer";
-import { CategoryRoutesHandler } from "../Category/CategoryRoutesHandler";
-import { CompanyRoutesHandler } from "../Company/CompanyRoutesHandler";
+import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
+import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
 import { LoginHandler } from "./LoginHandler";
 import { TokenValidator } from "./Model";
 import { UsersHandler } from "./UsersHandler";
