@@ -2,16 +2,11 @@ import { IncomingMessage, ServerResponse } from "http";
 import { UrlWithParsedQuery } from "url";
 import { BaseRequestHandler } from "../Server/BaseRequestHandler";
 import { Utils } from "../Server/utils";
-import {
-  Category,
-  CrudHandle,
-  HTTP_CODES,
-  HTTP_METHODS,
-} from "../Shared/Model";
-import { CategoyDBAccess } from "./CategoryDBAccess";
+import { Company, HTTP_CODES, HTTP_METHODS } from "../Shared/Model";
+import { CompanyDBAccess } from "./CompanyDBAccess";
 
-export class CategoryRoutesHandler extends BaseRequestHandler {
-  private categoryDBAccess: CategoyDBAccess = new CategoyDBAccess();
+export class CompanyRoutesHandler extends BaseRequestHandler {
+  private companyDBAccess: CompanyDBAccess = new CompanyDBAccess();
   private parsedUrl: UrlWithParsedQuery | undefined;
 
   public constructor(req: IncomingMessage, res: ServerResponse) {
@@ -48,18 +43,18 @@ export class CategoryRoutesHandler extends BaseRequestHandler {
       if (this.parsedUrl) {
         if (this.parsedUrl.query.id) {
           const id = this.parsedUrl.query.id as string;
-          const result = await this.categoryDBAccess.getById(id);
+          const result = await this.companyDBAccess.getById(id);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Id");
         } else if (this.parsedUrl?.query.name) {
           const name = this.parsedUrl.query.name as string;
-          const result = await this.categoryDBAccess.getByName(name);
+          const result = await this.companyDBAccess.getByName(name);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Name");
         } else {
-          const result = await this.categoryDBAccess.getAll();
+          const result = await this.companyDBAccess.getAll();
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNotFound();
@@ -74,11 +69,11 @@ export class CategoryRoutesHandler extends BaseRequestHandler {
 
   private async handleUpdate(): Promise<void> {
     try {
-      const category: Category = await this.getRequestBody();
-      await this.categoryDBAccess.update(category);
+      const company: Company = await this.getRequestBody();
+      await this.companyDBAccess.update(company);
       this.respondText(
         HTTP_CODES.CREATED,
-        `Category with id ${category.id} Updated successfully`
+        `Company with id ${company.id} Updated successfully`
       );
     } catch (error: Error | any) {
       this.respondBadRequest(error.message);
@@ -87,11 +82,11 @@ export class CategoryRoutesHandler extends BaseRequestHandler {
 
   private async handlePost() {
     try {
-      const category: Category = await this.getRequestBody();
-      await this.categoryDBAccess.insert(category);
+      const company: Company = await this.getRequestBody();
+      await this.companyDBAccess.insert(company);
       this.respondText(
         HTTP_CODES.CREATED,
-        `Category  ${category.name} inserted successfully`
+        `Company  ${company.name} inserted successfully`
       );
     } catch (error: Error | any) {
       console.log(error);
@@ -103,16 +98,13 @@ export class CategoryRoutesHandler extends BaseRequestHandler {
     try {
       if (this.parsedUrl?.query.id) {
         const id = this.parsedUrl.query.id as string;
-        const result = await this.categoryDBAccess.deleteByID(id);
+        const result = await this.companyDBAccess.deleteByID(id);
         if (result) {
-          this.respondText(
-            HTTP_CODES.OK,
-            `Category ${id} deleted successfully`
-          );
+          this.respondText(HTTP_CODES.OK, `Company ${id} deleted successfully`);
         } else {
           this.respondText(
             HTTP_CODES.NOT_FOUND,
-            `Category ${id} was not deleted `
+            `Company ${id} was not deleted `
           );
         }
       } else {

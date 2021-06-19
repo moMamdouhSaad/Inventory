@@ -1,24 +1,25 @@
 import dbConnection from "../db/connection";
-import { Category, DBCrudHandle, RowEffection } from "../Shared/Model";
+import { Company, DBCrudHandle, RowEffection } from "../Shared/Model";
 
-export class CategoyDBAccess implements DBCrudHandle {
+export class CompanyDBAccess implements DBCrudHandle {
   constructor() {}
 
-  public async insert(categry: Category): Promise<any> {
+  public async insert(company: Company): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
           const results = await pool
             .request()
-            .input("name", categry.name)
-            .input("description", categry.description)
-            .execute("Insert_Into_Category");
+            .input("name", company.name)
+            .input("description", company.description)
+            .execute("Insert_Into_Company");
           if (results.rowsAffected[0] > 0) {
             resolve(RowEffection.AFFECTED);
           } else {
             resolve(RowEffection.NON_AFFECTED);
           }
+          pool.close();
         } else {
           console.log("connection error");
         }
@@ -28,22 +29,23 @@ export class CategoyDBAccess implements DBCrudHandle {
     });
   }
 
-  public async update(category: Category): Promise<any> {
+  public async update(company: Company): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
           const results = await pool
             .request()
-            .input("id", category.id)
-            .input("name", category.name)
-            .input("description", category.description)
-            .execute("Update_Category");
+            .input("id", company.id)
+            .input("name", company.name)
+            .input("description", company.description)
+            .execute("Update_Company");
           if (results.rowsAffected[0] > 0) {
             resolve(RowEffection.AFFECTED);
           } else {
             throw new Error("Error with request body");
           }
+          pool.close();
         } else {
           throw new Error("Error with database connection");
         }
@@ -58,8 +60,8 @@ export class CategoyDBAccess implements DBCrudHandle {
       try {
         const pool = await dbConnection();
         if (pool) {
-          const categories = await pool.request().execute("Get_All_Categories");
-          resolve(categories.recordset);
+          const result = await pool.request().execute("Get_All_Companies");
+          resolve(result.recordset);
         } else {
           throw new Error("Error with database connection");
         }
@@ -77,7 +79,7 @@ export class CategoyDBAccess implements DBCrudHandle {
           const results = await pool
             .request()
             .input("id", id)
-            .execute("Get_Category_By_ID");
+            .execute("Get_Company_By_ID");
           resolve(results.recordset[0]);
         } else {
           throw new Error("Error with database connection");
@@ -96,7 +98,7 @@ export class CategoyDBAccess implements DBCrudHandle {
           const results = await pool
             .request()
             .input("name", name)
-            .execute("Get_Category_By_Name");
+            .execute("Get_Company_By_Name");
           resolve(results.recordset);
         } else {
           throw new Error("Error with database connection");
@@ -115,13 +117,12 @@ export class CategoyDBAccess implements DBCrudHandle {
           const results = await pool
             .request()
             .input("id", parseInt(id))
-            .execute("Delete_Category");
+            .execute("Delete_Company");
           if (results.rowsAffected[0] > 0) {
             resolve(RowEffection.AFFECTED);
           } else {
             resolve(RowEffection.NON_AFFECTED);
           }
-
           pool.close();
         } else {
           throw new Error("Error with database connection");
@@ -133,23 +134,23 @@ export class CategoyDBAccess implements DBCrudHandle {
   }
 }
 
-const test = new CategoyDBAccess();
+// const test = new CompanyDBAccess();
 
-const category: Category = {
-  id: 1,
-  name: "latest",
-  description: "desc2 updated",
-};
+// const company: Company = {
+//   id: 1,
+//   name: "latest",
+//   description: "desc2 updated",
+// };
 
 // test.insertCategory(category).then(
 //   (data) => console.log(data),
 //   (err) => console.log(err)
 // );
 
-test.update(category).then(
-  (data) => console.log(data),
-  (err) => console.log(err)
-);
+// test.update(company).then(
+//   (data) => console.log(data),
+//   (err) => console.log(err)
+// );
 
 // test.getAllCategories().then(
 //   (data) => console.log(data),

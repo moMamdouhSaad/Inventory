@@ -1,0 +1,36 @@
+
+
+
+
+GET  http://localhost:3000/company
+
+
+###
+GET  http://localhost:3000/company?id=2
+
+
+###
+DELETE   http://localhost:3000/company?id=2
+
+
+###
+PUT http://localhost:3000/company 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+   "id": 2,
+   "name": "updated"
+}
+
+###
+
+
+###
+POST http://localhost:3000/company
+Content-Type: "application/json"
+
+{
+   "name": "second company",
+   "description":"description"
+}

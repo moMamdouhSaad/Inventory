@@ -6,9 +6,24 @@ export interface Category {
   description: string;
 }
 
+export interface Company {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export enum RowEffection {
   AFFECTED = 1,
   NON_AFFECTED = 0,
+}
+
+export interface DBCrudHandle {
+  insert(categry: Category): Promise<any>;
+  update(category: Category): Promise<any>;
+  getAll(): Promise<any>;
+  getById(id: string): Promise<any>;
+  getByName(name: string): Promise<any>;
+  deleteByID(id: string): Promise<any>;
 }
 
 export abstract class CrudHandle {
