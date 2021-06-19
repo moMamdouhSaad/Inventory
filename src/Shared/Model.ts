@@ -38,7 +38,13 @@ export interface Supplier {
   name: string;
   address: string;
   phone: string;
-  notes: string;
+}
+
+export interface Client {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
 }
 
 export interface Client {

@@ -1,0 +1,40 @@
+
+
+
+
+GET  http://localhost:3000/client
+
+
+###
+GET  http://localhost:3000/client?id=2
+
+
+###
+DELETE   http://localhost:3000/client?id=2
+
+
+###
+PUT http://localhost:3000/client 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+   "id": 2,
+      "name": "myname",
+
+   "address": "soso client",
+   "phone":"014645110"
+}
+
+###
+
+
+###
+POST http://localhost:3000/client
+Content-Type: "application/json"
+
+{
+   "name": "second client",
+   "address":"address",
+   "phone":"0106621416"
+}

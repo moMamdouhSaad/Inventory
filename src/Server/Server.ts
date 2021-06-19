@@ -1,6 +1,7 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Authorizer } from "../Authorization/Authorizer";
 import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
+import { ClientRoutesHandler } from "../Entities/Client/ClientRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
 import { ProductRoutesHandler } from "../Entities/Product/ProductRoutesHandler";
 import { SupplierRoutesHandler } from "../Entities/Supplier/SupplierRoutesHandler";
@@ -26,8 +27,6 @@ export class Server {
           break;
 
         case "category":
-          console.log("category");
-
           await new CategoryRoutesHandler(req, res).handleRequest();
           break;
 
@@ -41,6 +40,10 @@ export class Server {
 
         case "supplier":
           await new SupplierRoutesHandler(req, res).handleRequest();
+          break;
+
+        case "client":
+          await new ClientRoutesHandler(req, res).handleRequest();
           break;
 
         case "uom":
