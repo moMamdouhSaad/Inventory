@@ -2,6 +2,7 @@ import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Authorizer } from "../Authorization/Authorizer";
 import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
+import { ProductRoutesHandler } from "../Entities/Product/ProductRoutesHandler";
 import { UOMRoutesHandler } from "../Entities/UOM/UOMRoutesHandler";
 import { LoginHandler } from "./LoginHandler";
 import { TokenValidator } from "./Model";
@@ -33,9 +34,11 @@ export class Server {
           await new CompanyRoutesHandler(req, res).handleRequest();
           break;
 
-        case "uom":
-          console.log("uom");
+        case "product":
+          await new ProductRoutesHandler(req, res).handleRequest();
+          break;
 
+        case "uom":
           await new UOMRoutesHandler(req, res).handleRequest();
           break;
 

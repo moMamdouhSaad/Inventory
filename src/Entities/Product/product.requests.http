@@ -1,0 +1,49 @@
+
+
+
+
+GET  http://localhost:3000/product
+
+###
+GET  http://localhost:3000/product?id=21
+
+###
+GET  http://localhost:3000/product?name=first
+
+
+###
+DELETE   http://localhost:3000/product?id=7
+
+
+###
+PUT http://localhost:3000/product 
+Authorization: aakv8c5xxlh
+Content-Type: "application/json"
+
+{
+ "id":14,
+ "barcode":"new two",
+ "name":"new two",
+ "stock_qty":90,
+ "price":80,
+ "company_id": 3,
+ "category_id":4,
+ "uom_id":3
+}
+
+###
+
+
+###
+POST http://localhost:3000/product
+Content-Type: "application/json"
+
+{
+  "barcode":"new two",
+ "name":"new two",
+ "stock_qty":90,
+ "price":80,
+ "company_id": 3,
+ "category_id":4,
+ "uom_id":3
+}

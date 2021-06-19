@@ -18,9 +18,27 @@ export interface Uom {
   description: string;
 }
 
+export interface Product {
+  id: number;
+  barcode: string;
+  name: string;
+  description: string;
+  stock_qty: number;
+  price: number;
+  is_active: ZeroOne;
+  deleted: ZeroOne;
+  company_id: number;
+  category_id: number;
+  uom_id: number;
+}
+
 export enum RowEffection {
   AFFECTED = 1,
   NON_AFFECTED = 0,
+}
+export enum ZeroOne {
+  zero,
+  one,
 }
 
 export interface DBCrudHandle {
