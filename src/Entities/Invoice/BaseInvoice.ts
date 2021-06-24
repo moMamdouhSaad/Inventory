@@ -1,10 +1,4 @@
-import {
-  Client,
-  Product,
-  ProductOrderLine,
-  Supplier,
-} from "../../Shared/Model";
-import { SaleOrderInsertationDB } from "./Sales/model";
+import { Client, ProductOrderLine, Supplier } from "../../Shared/Model";
 
 export abstract class BaseInvoice {
   private consumer: Client | Supplier;
@@ -34,11 +28,12 @@ export abstract class BaseInvoice {
   public getConsumerId(): number {
     return this.consumer.id;
   }
+
   public getSubtotal(): number {
     return this._getSubtotal();
   }
 
-  public getTotal() {
+  public getTotal(): number {
     return this._getTotal();
   }
 
@@ -81,7 +76,7 @@ export abstract class BaseInvoice {
     this._getTotal(); // 4
   }
 
-  private _getTotal() {
+  private _getTotal(): number {
     this.total = this.subTotal + this.taxValue + this.discountValue;
     return this.total;
   }
@@ -96,91 +91,3 @@ export abstract class BaseInvoice {
     return this.taxValue;
   }
 }
-
-// export class OrderProduct {
-//   private product: Product;
-//   private qty: number;
-//   private price: number;
-//   private total: number;
-
-//   constructor(product: Product, qty: number, price: number) {
-//     this.product = product;
-//     this.qty = qty;
-//     this.price = price;
-//     this.total = 0;
-//   }
-
-//   public getProduct(): Product {
-//     return this.product;
-//   }
-//   public getQty(): number {
-//     return this.qty;
-//   }
-//   public getPrice() {
-//     return this.price;
-//   }
-
-//   public getTotal(): number {
-//     this.total = this.price * this.qty;
-//     return this.total;
-//   }
-// }
-// /* -------------------------------- */
-// export class OrderProducts {
-//   private productsOrder: ProductOrderLine[];
-
-//   constructor(productsOrder: ProductOrderLine[]) {
-//     this.productsOrder = productsOrder;
-//   }
-// }
-
-/* -------------------------------- */
-const saleProduct: Product[] = [
-  {
-    id: 14,
-    barcode: "new two",
-    name: "new two",
-    description: null,
-    stock_qty: 90,
-    price: 80,
-    is_active: true,
-  },
-  {
-    id: 16,
-    barcode: "45g6fd4g6df",
-    name: "cola-pepsi",
-    description: null,
-    stock_qty: 90,
-    price: 80,
-    is_active: true,
-  },
-];
-
-const productSaleLines: ProductOrderLine[] = [
-  { productId: saleProduct[0].id, qty: 5, price: 80, total: 400 },
-  { productId: saleProduct[1].id, qty: 2, price: 25, total: 50 },
-];
-
-const client: Client = {
-  id: 3,
-  name: "second client",
-  address: "address",
-  phone: "0106621416",
-  deleted: 0,
-};
-
-// const order = new BaseInvoice(client, productSaleLines);
-// const sentOrder: SaleOrderInsertationDB = {
-//   clientId: 1,
-//   subTotal: order.getSubtotal(),
-//   taxValue: order.getTaxValue(),
-//   discountRate: order.getDiscountRate(),
-//   taxRate: order.getTaxRate(),
-//   discountvalue: order.getDiscountValue(),
-//   totalPrice: order.getTotal(),
-//   debit: 50,
-// };
-// const orderItems = {
-//   items: order.getProductsLines(),
-// };
-// console.log(sentOrder, orderItems);

@@ -5,7 +5,6 @@ import { Utils } from "../../../Server/utils";
 import { HTTP_CODES, HTTP_METHODS } from "../../../Shared/Model";
 import { SaleOrderInsertationDB, SaleOrderRequestDB } from "./model";
 import { SaleOrderDBAccess } from "./SaleOrderDBAccess";
-import { createCheckers } from "ts-interface-checker";
 import { SalesOrder } from "./SalesOrder";
 
 export class SaleOrderRoutesHandler extends BaseRequestHandler {
@@ -34,7 +33,7 @@ export class SaleOrderRoutesHandler extends BaseRequestHandler {
 
   // Implementation
 
-  private async handlePost() {
+  private async handlePost(): Promise<void> {
     try {
       const requestOrder: SaleOrderRequestDB = await this.getRequestBody();
       const test: SalesOrder = new SalesOrder(

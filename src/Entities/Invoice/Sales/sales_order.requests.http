@@ -5,7 +5,7 @@
 GET  http://localhost:3000/sales_order
 
 ###
-GET  http://localhost:3000/sales_order?id=16
+GET  http://localhost:3000/sales_order?id=93
 
 
 
@@ -15,8 +15,7 @@ Content-Type: "application/json"
 
 {
    "client": {"id":1},
-   "productsOrderLines":[{"productId":22,"qty":4,"price":9,"total":36},
-   {"productId":14,"qty":5,"price":9,"total":40},
-   {"productId":16,"qty":5,"price":10,"total":50}],
+   "productsOrderLines":[{ "productId":21, "qty":1, "price":9, "total" :36},
+   {"productId":23, "qty" :3,"price":9,"total" :40}],
    "debit":40
 }

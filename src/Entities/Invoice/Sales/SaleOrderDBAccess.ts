@@ -1,10 +1,5 @@
 import dbConnection from "../../../db/connection";
-import {
-  Company,
-  DBCrudHandle,
-  ProductOrderLine,
-  RowEffection,
-} from "../../../Shared/Model";
+import { ProductOrderLine, RowEffection } from "../../../Shared/Model";
 import { SaleOrderInsertationDB } from "./model";
 
 export class SaleOrderDBAccess {
@@ -17,7 +12,11 @@ export class SaleOrderDBAccess {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
+        const pool2 = await dbConnection();
+
         if (pool) {
+          await this.checkQtysAvailability(productsOrderLines);
+
           const SaleOrderResults = await pool
             .request()
             .input("client_id", order.clientId)
@@ -30,36 +29,32 @@ export class SaleOrderDBAccess {
             .input("debit", order.debit)
             .execute("Insert_Into_Sale_Order_AND_Client_Account");
 
-          if (SaleOrderResults) {
-            console.log(SaleOrderResults);
-            const pool2 = await dbConnection();
-            if (pool2) {
-              let saledOrderLine;
-              productsOrderLines.forEach(async (x) => {
-                saledOrderLine = await pool2
-                  .request()
-                  .input("order_id", null)
-                  .input("product_id", x.productId)
-                  .input("qty", x.qty)
-                  .input("sale_price", x.price)
-                  .input("total_price", x.total)
-                  .execute("Insert_Sale_Order_Line");
-              });
+          if (pool2) {
+            let orderLine;
+            productsOrderLines.forEach(async (x) => {
+              orderLine = await pool2
+                .request()
+                .input("order_id", null)
+                .input("product_id", x.productId)
+                .input("qty", x.qty)
+                .input("sale_price", x.price)
+                .input("total_price", x.total)
+                .execute("Insert_Sale_Order_Line");
+            });
+
+            if (SaleOrderResults.rowsAffected[0] > 0) {
+              resolve(RowEffection.AFFECTED);
+            } else {
+              resolve(RowEffection.NON_AFFECTED);
             }
           }
 
-          console.log(SaleOrderResults);
-
-          if (SaleOrderResults.rowsAffected[0] > 0) {
-            resolve(RowEffection.AFFECTED);
-          } else {
-            resolve(RowEffection.NON_AFFECTED);
-          }
           pool.close();
         } else {
           throw new Error("Error with database connection");
         }
       } catch (e) {
+        console.log(e);
         reject(e);
       }
     });
@@ -95,6 +90,7 @@ export class SaleOrderDBAccess {
             .request()
             .input("id", id)
             .execute("Get_Sale_Order_By_ID");
+
           const order = {
             details: saleOrderResults.recordset[0],
             lines: solResults.recordset,
@@ -106,6 +102,31 @@ export class SaleOrderDBAccess {
         }
       } catch (e) {
         reject(e);
+      }
+    });
+  }
+
+  private async checkQtysAvailability(
+    productLines: ProductOrderLine[]
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const pool = await dbConnection();
+        if (pool) {
+          productLines.forEach(async (x, i) => {
+            const product = await pool
+              .request()
+              .input("id", x.productId)
+              .execute("Get_Product_By_ID");
+            if (product.recordset[0].stock_qty < x.qty) {
+              reject({ message: "stock qty erroooooooor" });
+            } else if (i === productLines.length - 1) {
+              resolve("nice");
+            }
+          });
+        }
+      } catch (error) {
+        reject(error.message);
       }
     });
   }

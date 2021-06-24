@@ -33,7 +33,6 @@ CREATE OR ALTER PROCEDURE Insert_Into_Sale_Order_AND_Client_Account
  @tax_value int,
  @total_price int,
  @debit int,
-AS
 BEGIN
 
     INSERT  INTO sale_order
