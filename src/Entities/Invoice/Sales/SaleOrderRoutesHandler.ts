@@ -71,6 +71,36 @@ export class SaleOrderRoutesHandler extends BaseRequestHandler {
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Id");
+        } else if (this.parsedUrl.query.cid) {
+          const id = this.parsedUrl.query.cid as string;
+          const result = await this.saleOrderDBAccess.getByClientId(id);
+          result
+            ? this.respondJsonObject(HTTP_CODES.OK, result)
+            : this.handleNoContent("Not Match Id");
+        } else if (this.parsedUrl.query.from && this.parsedUrl.query.to) {
+          const from = this.parsedUrl.query.from as string;
+          const to = this.parsedUrl.query.to as string;
+          const result = await this.saleOrderDBAccess.getByDateRange(from, to);
+          result
+            ? this.respondJsonObject(HTTP_CODES.OK, result)
+            : this.handleNoContent("Not Match date");
+        } else if (
+          this.parsedUrl.query.from &&
+          this.parsedUrl.query.to &&
+          this.parsedUrl.query.cid
+        ) {
+          const from = this.parsedUrl.query.from as string;
+          const to = this.parsedUrl.query.to as string;
+          const cid = this.parsedUrl.query.cid as string;
+
+          const result = await this.saleOrderDBAccess.getByClientIdAndDateRange(
+            cid,
+            from,
+            to
+          );
+          result
+            ? this.respondJsonObject(HTTP_CODES.OK, result)
+            : this.handleNoContent("Not Match date");
         } else {
           const result = await this.saleOrderDBAccess.getAll();
           result

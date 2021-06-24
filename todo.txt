@@ -1,11 +1,19 @@
-1- Connect sql server with server // Done
+1- Connect sql server with server
 2- Category,Company, UOM
 3- products
 4- Supplier and Client
 
 5- SaleOrder and PurchaseOrder and invoices
-A "Sales Order" is usually "customer centric". 
-A "Purchase Order" is usually "supplier centric"
+
+ (select all invoices by date range)
+ (select all invoices by client id) 
+ (select invoices by client and date range)
+
+ 
+ (client account handling)
+
 
 6- pagination and response body
+
+
 7- System Users

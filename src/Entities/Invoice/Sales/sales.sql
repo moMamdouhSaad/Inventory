@@ -109,6 +109,7 @@ BEGIN
   join product  p on SOL.product_id = p.id JOIN uom on p.uom_id = uom.id
   where SOL.order_id = @id AND p.deleted =0
  END
+ 
 
 -- get sale order by id
  CREATE OR ALTER PROCEDURE Get_Sale_Order_By_ID
@@ -120,8 +121,40 @@ BEGIN
     WHERE  id = @id;
 END
 
+-- get sale order by clientId
+ CREATE OR ALTER PROCEDURE Get_Sale_Order_By_ClientID
+@id INT
+AS
+BEGIN
+    SELECT *
+    FROM   sale_order
+    WHERE  client_id = @id;
+END
+
 
  
 
 
+-- get sale order by date range
+ CREATE OR ALTER PROCEDURE Get_Sale_Order_By_Date_Range
+@from varchar(100),
+@to varchar(100)
+AS
+BEGIN
+    SELECT *
+    FROM   sale_order WHERE cast(order_date as date) BETWEEN @from AND @to;
+END 
+
+ CREATE OR ALTER PROCEDURE Get_Sale_Order_By_ClientID_And_DateRange
+@client_id int, 
+@from varchar(100),
+@to varchar(100)
+AS
+BEGIN
+    SELECT *
+    FROM   sale_order WHERE cast(order_date as date) BETWEEN @from AND @to
+    AND client_id = @client_id 
+    ;
+END 
+ 
  

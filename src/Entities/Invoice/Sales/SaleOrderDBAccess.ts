@@ -106,6 +106,71 @@ export class SaleOrderDBAccess {
     });
   }
 
+  public async getByClientId(id: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const pool = await dbConnection();
+        if (pool) {
+          const result = await pool
+            .request()
+            .input("id", id)
+            .execute("Get_Sale_Order_By_ClientID");
+          resolve(result.recordset);
+        } else {
+          throw new Error("Error with database connection");
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  public async getByClientIdAndDateRange(
+    id: string,
+    from: string,
+    to: string
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const pool = await dbConnection();
+        if (pool) {
+          const result = await pool
+            .request()
+            .input("id", id)
+            .input("from", from)
+            .input("to", to)
+            .execute("Get_Sale_Order_By_ClientID_And_DateRange");
+          resolve(result.recordset);
+        } else {
+          throw new Error("Error with database connection");
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  public async getByDateRange(from: string, to: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const pool = await dbConnection();
+        if (pool) {
+          const result = await pool
+            .request()
+            .input("from", from)
+            .input("to", to)
+            .execute("Get_Sale_Order_By_Date_Range");
+
+          resolve(result.recordset);
+        } else {
+          throw new Error("Error with database connection");
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
   private async checkQtysAvailability(
     productLines: ProductOrderLine[]
   ): Promise<any> {
