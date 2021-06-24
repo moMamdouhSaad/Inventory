@@ -1,4 +1,3 @@
-import internal = require("stream");
 import { Account } from "../Server/Model";
 
 export interface Category {
@@ -23,14 +22,31 @@ export interface Product {
   id: number;
   barcode: string;
   name: string;
-  description: string;
+  description: string | null;
   stock_qty: number;
   price: number;
-  is_active: ZeroOne;
-  deleted: ZeroOne;
-  company_id: number;
-  category_id: number;
-  uom_id: number;
+  is_active: boolean;
+  deleted?: boolean;
+  company_id?: number;
+  category_id?: number;
+  uom_id?: number;
+  sale_price?: number;
+}
+export interface ProductOrderLine {
+  // came from front end
+  productId: number;
+  qty: number;
+  price: number;
+  total: number;
+}
+export interface OrdernIvoiceLine {
+  // register to database
+  id: number;
+  invoiceId: number;
+  productId: number;
+  qty: number;
+  price: number;
+  total: number;
 }
 
 export interface Supplier {
@@ -45,23 +61,12 @@ export interface Client {
   name: string;
   address: string;
   phone: string;
-}
-
-export interface Client {
-  id: number;
-  name: string;
-  address: string;
-  phone: string;
-  notes: string;
+  deleted?: 0 | 1;
 }
 
 export enum RowEffection {
   AFFECTED = 1,
   NON_AFFECTED = 0,
-}
-export enum ZeroOne {
-  zero,
-  one,
 }
 
 export interface DBCrudHandle {

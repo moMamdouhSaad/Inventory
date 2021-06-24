@@ -57,7 +57,6 @@ export class ProductRoutesHandler extends BaseRequestHandler {
       if (this.parsedUrl) {
         if (this.parsedUrl.query.id) {
           const id = this.parsedUrl.query.id as string;
-          console.log(id);
           const result = await this.productDBAccess.getById(id);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)

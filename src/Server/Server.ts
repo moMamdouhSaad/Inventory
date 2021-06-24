@@ -3,11 +3,11 @@ import { Authorizer } from "../Authorization/Authorizer";
 import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
 import { ClientRoutesHandler } from "../Entities/Client/ClientRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
+import { SaleOrderRoutesHandler } from "../Entities/Invoice/Sales/SaleOrderRoutesHandler";
 import { ProductRoutesHandler } from "../Entities/Product/ProductRoutesHandler";
 import { SupplierRoutesHandler } from "../Entities/Supplier/SupplierRoutesHandler";
 import { UOMRoutesHandler } from "../Entities/UOM/UOMRoutesHandler";
 import { LoginHandler } from "./LoginHandler";
-import { TokenValidator } from "./Model";
 import { UsersHandler } from "./UsersHandler";
 import { Utils } from "./utils";
 export class Server {
@@ -44,6 +44,10 @@ export class Server {
 
         case "client":
           await new ClientRoutesHandler(req, res).handleRequest();
+          break;
+
+        case "sales_order":
+          await new SaleOrderRoutesHandler(req, res).handleRequest();
           break;
 
         case "uom":

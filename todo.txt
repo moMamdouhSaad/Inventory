@@ -3,6 +3,9 @@
 3- products
 4- Supplier and Client
 
-5- Sale and Purchase
+5- SaleOrder and PurchaseOrder and invoices
+A "Sales Order" is usually "customer centric". 
+A "Purchase Order" is usually "supplier centric"
+
 6- pagination and response body
 7- System Users
