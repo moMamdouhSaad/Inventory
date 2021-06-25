@@ -2,6 +2,7 @@ import { createServer, IncomingMessage, ServerResponse } from "http";
 import { Authorizer } from "../Authorization/Authorizer";
 import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandler";
 import { ClientRoutesHandler } from "../Entities/Client/ClientRoutesHandler";
+import { ClientAccountRoutesHandler } from "../Entities/ClientAccount/ClientAccountRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
 import { SaleOrderRoutesHandler } from "../Entities/Invoice/Sales/SaleOrderRoutesHandler";
 import { ProductRoutesHandler } from "../Entities/Product/ProductRoutesHandler";
@@ -48,6 +49,10 @@ export class Server {
 
         case "sales_order":
           await new SaleOrderRoutesHandler(req, res).handleRequest();
+          break;
+
+        case "client_account":
+          await new ClientAccountRoutesHandler(req, res).handleRequest();
           break;
 
         case "uom":

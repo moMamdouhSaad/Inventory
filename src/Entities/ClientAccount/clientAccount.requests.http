@@ -1,0 +1,26 @@
+
+###
+GET  http://localhost:3000/client_account?id=1
+
+
+
+###
+GET  http://localhost:3000/client_account
+
+
+###
+GET  http://localhost:3000/client_account?client_id=1&from=2021-06-21&to=2021-06-29
+
+###
+GET  http://localhost:3000/client_account?from=2021-06-21&to=2021-06-30
+
+###
+
+POST http://localhost:3000/client_account
+Content-Type: "application/json"
+
+{
+   "clientId": 1,
+   "debit":2300
+}
+

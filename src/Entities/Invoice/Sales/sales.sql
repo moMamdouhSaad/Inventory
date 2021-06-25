@@ -98,7 +98,7 @@ CREATE OR ALTER PROCEDURE Get_All_Sale_Order
 AS
 BEGIN
   Select * from sale_order 
- END
+END
 
 -- get sale order line by id
 CREATE OR ALTER PROCEDURE Get_Sale_Order_Lines_By_OderId
