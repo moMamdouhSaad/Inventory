@@ -1,12 +1,12 @@
 import dbConnection from "../../../db/connection";
 import { ProductOrderLine, RowEffection } from "../../../Shared/Model";
-import { SaleOrderInsertationDB } from "./model";
+import { OrderFunctionalInterface, OrderInsertationDB } from "../order-model";
 
-export class SaleOrderDBAccess {
+export class SaleOrderDBAccess implements OrderFunctionalInterface {
   constructor() {}
 
   public async insert(
-    order: SaleOrderInsertationDB,
+    order: OrderInsertationDB,
     productsOrderLines: ProductOrderLine[]
   ): Promise<any> {
     return new Promise(async (resolve, reject) => {
@@ -19,7 +19,7 @@ export class SaleOrderDBAccess {
 
           const SaleOrderResults = await pool
             .request()
-            .input("client_id", order.clientId)
+            .input("client_id", order.consumerId)
             .input("sub_total", order.subTotal)
             .input("discount_rate", order.discountRate)
             .input("discount_value", order.discountvalue)
@@ -106,7 +106,7 @@ export class SaleOrderDBAccess {
     });
   }
 
-  public async getByClientId(id: string): Promise<any> {
+  public async getByConsumerId(id: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
@@ -125,7 +125,7 @@ export class SaleOrderDBAccess {
     });
   }
 
-  public async getByClientIdAndDateRange(
+  public async getByConsumerIdAndDateRange(
     id: string,
     from: string,
     to: string

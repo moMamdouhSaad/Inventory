@@ -3,7 +3,7 @@ import { UrlWithParsedQuery } from "url";
 import { BaseRequestHandler } from "../../../Server/BaseRequestHandler";
 import { Utils } from "../../../Server/utils";
 import { HTTP_CODES, HTTP_METHODS } from "../../../Shared/Model";
-import { SaleOrderInsertationDB, SaleOrderRequestDB } from "./model";
+import { OrderRequestJson, OrderInsertationDB } from "../order-model";
 import { SaleOrderDBAccess } from "./SaleOrderDBAccess";
 import { SalesOrder } from "./SalesOrder";
 
@@ -35,19 +35,19 @@ export class SaleOrderRoutesHandler extends BaseRequestHandler {
 
   private async handlePost(): Promise<void> {
     try {
-      const requestOrder: SaleOrderRequestDB = await this.getRequestBody();
-      const test: SalesOrder = new SalesOrder(
+      const requestOrder: OrderRequestJson = await this.getRequestBody();
+      const saleOrder: SalesOrder = new SalesOrder(
         requestOrder.client,
         requestOrder.productsOrderLines
       );
-      const order: SaleOrderInsertationDB = {
-        clientId: test.getConsumerId(),
-        discountRate: test.getDiscountRate(),
-        discountvalue: test.getDiscountValue(),
-        subTotal: test.getSubtotal(),
-        totalPrice: test.getTotal(),
-        taxRate: test.getTaxRate(),
-        taxValue: test.getTaxValue(),
+      const order: OrderInsertationDB = {
+        consumerId: saleOrder.getConsumerId(),
+        discountRate: saleOrder.getDiscountRate(),
+        discountvalue: saleOrder.getDiscountValue(),
+        subTotal: saleOrder.getSubtotal(),
+        totalPrice: saleOrder.getTotal(),
+        taxRate: saleOrder.getTaxRate(),
+        taxValue: saleOrder.getTaxValue(),
         debit: requestOrder.debit,
       };
 
@@ -73,7 +73,7 @@ export class SaleOrderRoutesHandler extends BaseRequestHandler {
             : this.handleNoContent("Not Match Id");
         } else if (this.parsedUrl.query.cid) {
           const id = this.parsedUrl.query.cid as string;
-          const result = await this.saleOrderDBAccess.getByClientId(id);
+          const result = await this.saleOrderDBAccess.getByConsumerId(id);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Id");
@@ -93,11 +93,12 @@ export class SaleOrderRoutesHandler extends BaseRequestHandler {
           const to = this.parsedUrl.query.to as string;
           const cid = this.parsedUrl.query.cid as string;
 
-          const result = await this.saleOrderDBAccess.getByClientIdAndDateRange(
-            cid,
-            from,
-            to
-          );
+          const result =
+            await this.saleOrderDBAccess.getByConsumerIdAndDateRange(
+              cid,
+              from,
+              to
+            );
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match date");
