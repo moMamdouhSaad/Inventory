@@ -4,6 +4,7 @@ import { CategoryRoutesHandler } from "../Entities/Category/CategoryRoutesHandle
 import { ClientRoutesHandler } from "../Entities/Client/ClientRoutesHandler";
 import { ClientAccountRoutesHandler } from "../Entities/ClientAccount/ClientAccountRoutesHandler";
 import { CompanyRoutesHandler } from "../Entities/Company/CompanyRoutesHandler";
+import { PurchaseOrderRoutesHandler } from "../Entities/Invoice/Purchases/PurchaseOrderRoutesHandler";
 import { SaleOrderRoutesHandler } from "../Entities/Invoice/Sales/SaleOrderRoutesHandler";
 import { ProductRoutesHandler } from "../Entities/Product/ProductRoutesHandler";
 import { SupplierRoutesHandler } from "../Entities/Supplier/SupplierRoutesHandler";
@@ -49,6 +50,10 @@ export class Server {
 
         case "sales_order":
           await new SaleOrderRoutesHandler(req, res).handleRequest();
+          break;
+
+        case "purchase_order":
+          await new PurchaseOrderRoutesHandler(req, res).handleRequest();
           break;
 
         case "client_account":

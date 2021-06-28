@@ -17,6 +17,7 @@ export abstract class BaseInvoice {
     taxRate?: number
   ) {
     this.consumer = consumer;
+    console.log("base ", this.consumer);
     this.productsOrderLines = productsOrder;
     discountRate ? (this.discountRate = discountRate) : 0;
     taxRate ? (this.taxRate = taxRate) : 0;

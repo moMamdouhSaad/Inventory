@@ -1,4 +1,4 @@
-import { Client, ProductOrderLine } from "../../Shared/Model";
+import { Client, ProductOrderLine, Supplier } from "../../Shared/Model";
 
 export interface OrderInsertationDB {
   consumerId: number;
@@ -12,7 +12,7 @@ export interface OrderInsertationDB {
 }
 
 export interface OrderRequestJson {
-  client: Client;
+  consumer: Client | Supplier;
   productsOrderLines: ProductOrderLine[];
   debit: number;
 }

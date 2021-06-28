@@ -39,10 +39,10 @@ POST http://localhost:3000/product
 Content-Type: "application/json"
 
 {
-  "barcode":"new two",
- "name":"new two",
- "stock_qty":90,
- "price":80,
+ "barcode":"209",
+ "name":"chair",
+ "stock_qty":200,
+ "price":10,
  "company_id": 3,
  "category_id":4,
  "uom_id":3

@@ -1,0 +1,30 @@
+
+
+
+
+GET  http://localhost:3000/purchase_order
+
+###
+GET  http://localhost:3000/purchase_order?id=93
+
+###
+GET  http://localhost:3000/purchase_order?cid=1
+
+
+###
+GET  http://localhost:3000/purchase_order?from=2021-06-21&to=2021-06-28
+
+###
+GET  http://localhost:3000/purchase_order?cid=1&from=2021-06-21&to=2021-06-28
+
+
+###
+POST http://localhost:3000/purchase_order
+Content-Type: "application/json"
+
+{
+   "consumer": {"id":1},
+   "productsOrderLines":[{ "productId":21, "qty":90, "price":15, "total" :36},
+   {"productId":24, "qty" :300,"price":20,"total" :6000}],
+   "debit":40
+}
