@@ -77,33 +77,55 @@ export class SaleOrderRoutesHandler extends BaseRequestHandler {
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Id");
-        } else if (this.parsedUrl.query.from && this.parsedUrl.query.to) {
+        } else if (
+          this.parsedUrl.query.from &&
+          this.parsedUrl.query.to &&
+          this.parsedUrl?.query.page_no &&
+          this.parsedUrl?.query.limit
+        ) {
           const from = this.parsedUrl.query.from as string;
           const to = this.parsedUrl.query.to as string;
-          const result = await this.saleOrderDBAccess.getByDateRange(from, to);
+          const pageNo = this.parsedUrl.query.page_no as string;
+          const limit = this.parsedUrl.query.limit as string;
+          const result = await this.saleOrderDBAccess.getByDateRange(
+            from,
+            to,
+            pageNo,
+            limit
+          );
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match date");
         } else if (
           this.parsedUrl.query.from &&
           this.parsedUrl.query.to &&
-          this.parsedUrl.query.cid
+          this.parsedUrl.query.cid &&
+          this.parsedUrl?.query.page_no &&
+          this.parsedUrl?.query.limit
         ) {
           const from = this.parsedUrl.query.from as string;
           const to = this.parsedUrl.query.to as string;
           const cid = this.parsedUrl.query.cid as string;
-
+          const pageNo = this.parsedUrl.query.page_no as string;
+          const limit = this.parsedUrl.query.limit as string;
           const result =
             await this.saleOrderDBAccess.getByConsumerIdAndDateRange(
               cid,
               from,
-              to
+              to,
+              pageNo,
+              limit
             );
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match date");
-        } else {
-          const result = await this.saleOrderDBAccess.getAll();
+        } else if (
+          this.parsedUrl?.query.page_no &&
+          this.parsedUrl?.query.limit
+        ) {
+          const pageNo = this.parsedUrl.query.page_no as string;
+          const limit = this.parsedUrl.query.limit as string;
+          const result = await this.saleOrderDBAccess.getAll(pageNo, limit);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNotFound();

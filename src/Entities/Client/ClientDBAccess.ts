@@ -62,12 +62,16 @@ export class ClientDBAccess implements DBCrudHandle {
     });
   }
 
-  public async getAll(): Promise<any> {
+  public async getAll(pageNo: string, limit: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
-          const result = await pool.request().execute("Get_All_Clients");
+          const result = await pool
+            .request()
+            .input("offset", pageNo)
+            .input("limit", limit)
+            .execute("Get_All_Clients");
           resolve(result.recordset);
         } else {
           throw new Error("Error with database connection");

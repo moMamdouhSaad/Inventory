@@ -23,12 +23,19 @@ export interface OrderFunctionalInterface {
     productsOrderLines: ProductOrderLine[]
   ): Promise<any>;
   getByConsumerId(id: string): Promise<any>;
-  getAll(): Promise<any>;
+  getAll(pageNo: string, limit: string): Promise<any>;
   getById(id: string): Promise<any>;
   getByConsumerIdAndDateRange(
     id: string,
     from: string,
-    to: string
+    to: string,
+    pageNo: string,
+    limit: string
   ): Promise<any>;
-  getByDateRange(from: string, to: string): Promise<any>;
+  getByDateRange(
+    from: string,
+    to: string,
+    pageNo: string,
+    limit: string
+  ): Promise<any>;
 }

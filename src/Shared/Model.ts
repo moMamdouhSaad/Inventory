@@ -72,7 +72,7 @@ export enum RowEffection {
 export interface DBCrudHandle {
   insert(categry: any): Promise<any>;
   update(category: any): Promise<any>;
-  getAll(): Promise<any>;
+  getAll(pageNo: string, limit: string): Promise<any>;
   getById(id: string): Promise<any>;
   getByName(name: string): Promise<any>;
   deleteByID(id: string): Promise<any>;

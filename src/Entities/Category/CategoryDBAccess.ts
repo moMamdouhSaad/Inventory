@@ -53,12 +53,16 @@ export class CategoyDBAccess implements DBCrudHandle {
     });
   }
 
-  public async getAll(): Promise<any> {
+  public async getAll(pageNo: string, limit: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
-          const results = await pool.request().execute("Get_All_Categories");
+          const results = await pool
+            .request()
+            .input("offset", pageNo)
+            .input("limit", limit)
+            .execute("Get_All_Categories");
           resolve(results.recordset);
         } else {
           throw new Error("Error with database connection");

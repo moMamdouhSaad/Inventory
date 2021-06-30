@@ -8,8 +8,6 @@
  (select all invoices by date range)
  (select all invoices by client id) 
  (select invoices by client and date range)
-
- 
  (client account handling)
 
 

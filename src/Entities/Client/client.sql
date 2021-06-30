@@ -24,10 +24,14 @@ BEGIN
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_All_Clients
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
     SELECT *
-    FROM   client Where deleted = 0 ;
+    FROM   client Where deleted = 0 
+        ORDER BY client.id DESC
+    OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_Client_By_ID

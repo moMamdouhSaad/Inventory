@@ -2,7 +2,7 @@
 
 
 
-GET  http://localhost:3000/sales_order
+GET  http://localhost:3000/sales_order?page_no=1&limit=4
 
 ###
 GET  http://localhost:3000/sales_order?id=93
@@ -12,10 +12,10 @@ GET  http://localhost:3000/sales_order?cid=1
 
 
 ###
-GET  http://localhost:3000/sales_order?from=2021-06-21&to=2021-06-22
+GET  http://localhost:3000/sales_order?from=2021-06-21&to=2021-06-22&page_no=1&limit=4
 
 ###
-GET  http://localhost:3000/sales_order?cid=2&from=2021-06-21&to=2021-06-22
+GET  http://localhost:3000/sales_order?cid=2&from=2021-06-21&to=2021-06-22&page_no=1&limit=4
 
 
 ###

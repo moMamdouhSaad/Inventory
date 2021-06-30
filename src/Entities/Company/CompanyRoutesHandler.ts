@@ -53,8 +53,14 @@ export class CompanyRoutesHandler extends BaseRequestHandler {
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Name");
-        } else {
-          const result = await this.companyDBAccess.getAll();
+        } else if (
+          this.parsedUrl?.query.page_no &&
+          this.parsedUrl?.query.limit
+        ) {
+          const pageNo = this.parsedUrl.query.page_no as string;
+          const limit = this.parsedUrl.query.limit as string;
+
+          const result = await this.companyDBAccess.getAll(pageNo, limit);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNotFound();

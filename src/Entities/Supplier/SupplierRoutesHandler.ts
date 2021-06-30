@@ -2,12 +2,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import { UrlWithParsedQuery } from "url";
 import { BaseRequestHandler } from "../../Server/BaseRequestHandler";
 import { Utils } from "../../Server/utils";
-import {
-  Company,
-  HTTP_CODES,
-  HTTP_METHODS,
-  Supplier,
-} from "../../Shared/Model";
+import { HTTP_CODES, HTTP_METHODS, Supplier } from "../../Shared/Model";
 import { SupplierDBAccess } from "./SupplierDBAccess";
 
 export class SupplierRoutesHandler extends BaseRequestHandler {
@@ -58,8 +53,14 @@ export class SupplierRoutesHandler extends BaseRequestHandler {
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNoContent("Not Match Name");
-        } else {
-          const result = await this.supplierDBAccess.getAll();
+        } else if (
+          this.parsedUrl?.query.page_no &&
+          this.parsedUrl?.query.limit
+        ) {
+          const pageNo = this.parsedUrl.query.page_no as string;
+          const limit = this.parsedUrl.query.limit as string;
+
+          const result = await this.supplierDBAccess.getAll(pageNo, limit);
           result
             ? this.respondJsonObject(HTTP_CODES.OK, result)
             : this.handleNotFound();

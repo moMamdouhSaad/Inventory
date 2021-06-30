@@ -2,7 +2,7 @@
 
 
 
-GET  http://localhost:3000/product
+GET  http://localhost:3000/product?page_no=1&limit=4
 
 ###
 GET  http://localhost:3000/product?id=21

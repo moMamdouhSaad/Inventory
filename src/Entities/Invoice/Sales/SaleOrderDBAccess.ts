@@ -60,12 +60,16 @@ export class SaleOrderDBAccess implements OrderFunctionalInterface {
     });
   }
 
-  public async getAll(): Promise<any> {
+  public async getAll(pageNo: string, limit: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
         if (pool) {
-          const result = await pool.request().execute("Get_All_Sale_Order");
+          const result = await pool
+            .request()
+            .input("offset", pageNo)
+            .input("limit", limit)
+            .execute("Get_All_Sale_Order");
           resolve(result.recordset);
         } else {
           throw new Error("Error with database connection");
@@ -128,7 +132,9 @@ export class SaleOrderDBAccess implements OrderFunctionalInterface {
   public async getByConsumerIdAndDateRange(
     id: string,
     from: string,
-    to: string
+    to: string,
+    pageNo: string,
+    limit: string
   ): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -139,6 +145,8 @@ export class SaleOrderDBAccess implements OrderFunctionalInterface {
             .input("id", id)
             .input("from", from)
             .input("to", to)
+            .input("offset", pageNo)
+            .input("limit", limit)
             .execute("Get_Sale_Order_By_ClientID_And_DateRange");
           resolve(result.recordset);
         } else {
@@ -150,7 +158,12 @@ export class SaleOrderDBAccess implements OrderFunctionalInterface {
     });
   }
 
-  public async getByDateRange(from: string, to: string): Promise<any> {
+  public async getByDateRange(
+    from: string,
+    to: string,
+    pageNo: string,
+    limit: string
+  ): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const pool = await dbConnection();
@@ -159,6 +172,8 @@ export class SaleOrderDBAccess implements OrderFunctionalInterface {
             .request()
             .input("from", from)
             .input("to", to)
+            .input("offset", pageNo)
+            .input("limit", limit)
             .execute("Get_Sale_Order_By_Date_Range");
 
           resolve(result.recordset);

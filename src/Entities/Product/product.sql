@@ -39,11 +39,15 @@ END
 
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_All_Products
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
     Select p.id,p.barcode,p.name,p.description,p.stock_qty,p.price,p.is_active,co.name as company_name,c.name as category_name,u.name uom_name from product p join Category c on p.category_id = c.id
 join company co on p.company_id = co.id
-join uom u on p.uom_id = u.id where p.deleted = 0 ;
+join uom u on p.uom_id = u.id where p.deleted = 0 
+ORDER BY p.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_Product_By_ID

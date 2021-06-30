@@ -24,10 +24,14 @@ BEGIN
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_All_Suppliers
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
     SELECT *
-    FROM   supplier Where deleted = 0 ;
+    FROM   supplier Where deleted = 0 
+    ORDER BY supplier.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_Supplier_By_ID

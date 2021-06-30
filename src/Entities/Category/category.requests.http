@@ -2,7 +2,7 @@
 
 
 
-GET  http://localhost:3000/category
+GET  http://localhost:3000/category?page_no=1&limit=2
 
 
 ###

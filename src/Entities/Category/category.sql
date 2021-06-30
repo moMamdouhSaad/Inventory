@@ -24,10 +24,14 @@ BEGIN
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_All_Categories
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
     SELECT *
-    FROM   Category Where status != 'ff' ;
+    FROM  Category Where status != 'ff' 
+    ORDER BY Category.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_Category_By_ID

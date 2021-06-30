@@ -2,7 +2,7 @@
 
 
 
-GET  http://localhost:3000/client
+GET  http://localhost:3000/client?page_no=0&limit=1
 
 
 ###

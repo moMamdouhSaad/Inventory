@@ -95,9 +95,13 @@ END
 
 -- get all
 CREATE OR ALTER PROCEDURE Get_All_Sale_Order
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
   Select * from sale_order 
+  ORDER BY sale_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 
 -- get sale order line by id
@@ -123,12 +127,17 @@ END
 
 -- get sale order by clientId
  CREATE OR ALTER PROCEDURE Get_Sale_Order_By_ClientID
+ @offset int = 0,
+@limit int = 10,
 @id INT
 AS
 BEGIN
     SELECT *
     FROM   sale_order
-    WHERE  client_id = @id;
+    WHERE  client_id = @id
+    ORDER BY sale_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
+    
 END
 
 
@@ -137,15 +146,22 @@ END
 
 -- get sale order by date range
  CREATE OR ALTER PROCEDURE Get_Sale_Order_By_Date_Range
+ @offset int = 0,
+@limit int = 10,
 @from varchar(100),
 @to varchar(100)
 AS
 BEGIN
     SELECT *
-    FROM   sale_order WHERE cast(order_date as date) BETWEEN @from AND @to;
+    FROM   sale_order WHERE cast(order_date as date) BETWEEN @from AND @to
+    ORDER BY sale_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END 
 
+-- get sale order by date range & client id
  CREATE OR ALTER PROCEDURE Get_Sale_Order_By_ClientID_And_DateRange
+ @offset int = 0,
+@limit int = 10,
 @client_id int, 
 @from varchar(100),
 @to varchar(100)
@@ -154,7 +170,8 @@ BEGIN
     SELECT *
     FROM   sale_order WHERE cast(order_date as date) BETWEEN @from AND @to
     AND client_id = @client_id 
-    ;
+    ORDER BY sale_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END 
  
  

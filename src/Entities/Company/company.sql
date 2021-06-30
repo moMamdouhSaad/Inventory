@@ -22,10 +22,14 @@ BEGIN
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_All_Companies
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
     SELECT *
-    FROM   Company Where status != 'ff' ;
+    FROM   Company Where status != 'ff' 
+     ORDER BY Company.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 ---++++++++++++++++++++++++++++++++--
 CREATE OR ALTER PROCEDURE Get_Company_By_ID

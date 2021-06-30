@@ -116,9 +116,13 @@ END
 
 -- get all
 CREATE OR ALTER PROCEDURE Get_All_Purchase_Order
+@offset int = 0,
+@limit int = 10
 AS
 BEGIN
-  Select * from purchase_order 
+  Select * from purchase_order
+  ORDER BY purchase_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY 
 END
 
 -- get sale order line by id
@@ -142,14 +146,18 @@ BEGIN
     WHERE  id = @id;
 END
 
--- get sale order by clientId
- CREATE OR ALTER PROCEDURE Get_Purchase_Order_By_SupplierID
+-- get purchase order by clientId
+CREATE OR ALTER PROCEDURE Get_Purchase_Order_By_SupplierID
+@offset int = 0,
+@limit int = 10,
 @id INT
 AS
 BEGIN
     SELECT *
     FROM   purchase_order
-    WHERE  supplier_id = @id;
+    WHERE  supplier_id = @id
+    ORDER BY purchase_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END
 
 
@@ -158,17 +166,23 @@ END
 
 -- get sale order by date range
  CREATE OR ALTER PROCEDURE Get_Purchase_Order_By_Date_Range
+ @offset int = 0,
+@limit int = 10,
 @from varchar(100),
 @to varchar(100)
 AS
 BEGIN
     SELECT *
-    FROM   purchase_order WHERE cast(order_date as date) BETWEEN @from AND @to;
+    FROM   purchase_order WHERE cast(order_date as date) BETWEEN @from AND @to
+    ORDER BY purchase_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END 
 
 
 -- 
  CREATE OR ALTER PROCEDURE Get_Purchase_Order_By_SupplierID_And_DateRange
+@offset int = 0,
+@limit int = 10,
 @supplier_id int, 
 @from varchar(100),
 @to varchar(100)
@@ -177,7 +191,8 @@ BEGIN
     SELECT *
     FROM   purchase_order WHERE cast(order_date as date) BETWEEN @from AND @to
     AND supplier_id = @supplier_id 
-    ;
+    ORDER BY purchase_order.id DESC
+OFFSET	(@offset) ROWS FETCH NEXT (@limit) ROWS ONLY
 END 
  
  
